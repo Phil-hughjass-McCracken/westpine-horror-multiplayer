@@ -662,6 +662,28 @@
     ctx.fill();
   }
 
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+<script>
+  const socket = io("http://localhost:3000");
+
+  // when another player joins
+  socket.on("playerJoined", (id) => {
+    console.log("Player joined:", id);
+    // spawn them in game world
+  });
+
+  // send movement
+  function movePlayer(x, y) {
+    socket.emit("move", { x, y });
+  }
+
+  // receive movement
+  socket.on("playerMoved", (data) => {
+    console.log("Player moved:", data);
+    // update their position in your game world
+  });
+</script>
+
   // Start loop
   requestAnimationFrame(update);
   </script>
